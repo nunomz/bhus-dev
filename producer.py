@@ -5,10 +5,6 @@ user_ids = list(range(1, 101))
 velocity_range = list(range(30, 55))
 temperature_range = list(range(15, 25))
 
-import wmi
-w_temp=wmi.WMI(namespace="root\\wmi")
-print((w_temp.MSAcpi_ThermalZoneTemperature()[0].CurrentTemperature / 10.0)-273.15)
-
 def generate_message() -> dict:
     random_user_id = random.choice(user_ids)
     # Copy the recipients array
@@ -38,7 +34,12 @@ def serializer(message):
 
 # Kafka Producer
 producer = KafkaProducer(
-    bootstrap_servers=['localhost:9092'],
+    bootstrap_servers=['glider.srvs.cloudkafka.com:9094'],\
+    security_protocol='SASL_SSL',\
+    sasl_mechanism='SCRAM-SHA-256',\
+    sasl_plain_username='ussvswrg',\
+    sasl_plain_password='k_1BTu_ujWmgCOU5WSd4AK0dGJPxrINB',\
+    #bootstrap_servers='pg50670-vpf3gbo46iewetr9.socketxp.com',
     value_serializer=serializer
 )
 
@@ -50,7 +51,7 @@ if __name__ == '__main__':
         
         # Send it to our 'messages' topic
         print(f'Producing message @ {datetime.now()} | Message = {str(dummy_message)}')
-        producer.send('test', dummy_message)
+        producer.send('ussvswrg-sensores', dummy_message)
         producer.flush()
         
         # Sleep for a random number of seconds
