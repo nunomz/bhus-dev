@@ -1,23 +1,21 @@
-import os
+import os, shutil
 import json
 import flask
 from flask import Flask, json, jsonify
 from flask import request
 import mmap
-#from flask_limiter import Limiter
-#from flask_limiter.util import get_remote_address
+import consumer
+import threading
 
 app = flask.Flask(__name__)
 
-#limiter = Limiter(
-#    app=app,
-#    key_func=get_remote_address,
-#    default_limits=["1 per second"]
-#)
+# run consumer
+consumer_thread = threading.Thread(target=consumer.start, name="Consumer")
+consumer_thread.start()
+
 
 @app.route('/sensors', methods=['GET'])
 def index():
-    #if flask.request.method == 'GET':
     with open("sensorcluster_output.json", "rb") as file:
         try:
             file.seek(-2, os.SEEK_END)
@@ -26,10 +24,10 @@ def index():
         except OSError:
             file.seek(0)
         last_line = json.loads(file.readline().decode())
+        last_line['ticket_num'] = sum(1 for line in open('tickets.txt'))
     return last_line
 
 @app.route('/ticket', methods=['POST'])
-#@limiter.limit("10/second")
 def check_ticket():
     print(request)
     bcode = request.form.get('codes').encode('utf-8') 
@@ -56,10 +54,11 @@ def check_ticket():
             s.close()
             return resp
 
-@app.route('/ticket_count', methods=['GET'])
-def count_lines():
-    num_lines = sum(1 for line in open('tickets.txt'))
-    return str(num_lines)
+@app.route('/ticket_reset', methods=['GET'])
+def reset_ticket():
+    with open('all_tickets.txt', 'rb') as f2, open('tickets.txt', 'wb') as f1:
+        shutil.copyfileobj(f2, f1)
+    return 'success: tickets have been reset'
 
 if __name__ == '__main__':
     app.run()

@@ -17,7 +17,7 @@ class Singleton:
             Singleton.__instance = self
     
     def generate_message(self):
-        #create lists with upper and lower levels
+        #create lists with upper and lower limits
         user_ids = list(range(1, 101))
         velocity_range = list(range(30, 55))
         temperature_range = list(range(15, 25))
