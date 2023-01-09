@@ -6,6 +6,7 @@ from flask import request
 import mmap
 import consumer
 import threading
+import random
 
 app = flask.Flask(__name__)
 
@@ -26,6 +27,16 @@ def index():
         last_line = json.loads(file.readline().decode())
         last_line['ticket_num'] = sum(1 for line in open('tickets.txt'))
     return last_line
+
+@app.route('/newticket', methods=['GET'])
+def new_ticket():
+    print(request)
+    random_ticket = random.choice(open("tickets.txt").readlines())
+    message = {
+            'new_ticket': random_ticket
+        }
+    return message
+
 
 @app.route('/ticket', methods=['POST'])
 def check_ticket():
