@@ -19,6 +19,13 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -37,7 +44,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
             size: 30,
           ),
           onPressed: () async {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Text(
@@ -88,7 +95,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
                       child: Text(
-                        'Rota 115',
+                        'Rota 081',
                         style: FlutterFlowTheme.of(context).title1.override(
                               fontFamily: 'Outfit',
                               color: Color(0xFF0F1113),
@@ -100,7 +107,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 4, 0, 0),
                       child: Text(
-                        'Guimarães - Famalicão',
+                        'Gondar',
                         style: FlutterFlowTheme.of(context).bodyText2.override(
                               fontFamily: 'Outfit',
                               color: Color(0xFF57636C),
@@ -125,7 +132,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                               initialExpanded: false,
                               child: ExpandablePanel(
                                 header: Text(
-                                  'Description',
+                                  'Descrição',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -141,7 +148,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                     color: Colors.white,
                                   ),
                                   child: Text(
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing...',
+                                    'Autocarro que efetua a mesma rota de 30 em 30 minutos. A  viagem em média é de 25 minutos.',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
                                         .override(
@@ -232,7 +239,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 8, 0, 0),
                                     child: FutureBuilder<ApiCallResponse>(
-                                      future: SensorsCall.call(),
+                                      future: BusGroup.sensorsCall.call(),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -252,9 +259,11 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                         final textSensorsResponse =
                                             snapshot.data!;
                                         return Text(
-                                          SensorsCall.busid(
-                                            textSensorsResponse.jsonBody,
-                                          ).toString(),
+                                          BusGroup.sensorsCall
+                                              .busid(
+                                                textSensorsResponse.jsonBody,
+                                              )
+                                              .toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle1
                                               .override(
@@ -312,7 +321,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 8, 0, 0),
                                     child: FutureBuilder<ApiCallResponse>(
-                                      future: SensorsCall.call(),
+                                      future: BusGroup.sensorsCall.call(),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -332,9 +341,11 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                         final textSensorsResponse =
                                             snapshot.data!;
                                         return Text(
-                                          SensorsCall.velocity(
-                                            textSensorsResponse.jsonBody,
-                                          ).toString(),
+                                          BusGroup.sensorsCall
+                                              .velocity(
+                                                textSensorsResponse.jsonBody,
+                                              )
+                                              .toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle1
                                               .override(
@@ -393,7 +404,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 8, 0, 0),
                                     child: FutureBuilder<ApiCallResponse>(
-                                      future: SensorsCall.call(),
+                                      future: BusGroup.sensorsCall.call(),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -413,9 +424,11 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                         final textSensorsResponse =
                                             snapshot.data!;
                                         return Text(
-                                          SensorsCall.temp(
-                                            textSensorsResponse.jsonBody,
-                                          ).toString(),
+                                          BusGroup.sensorsCall
+                                              .temp(
+                                                textSensorsResponse.jsonBody,
+                                              )
+                                              .toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle1
                                               .override(
@@ -474,7 +487,7 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 8, 0, 0),
                                     child: FutureBuilder<ApiCallResponse>(
-                                      future: SensorsCall.call(),
+                                      future: BusGroup.sensorsCall.call(),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -494,7 +507,14 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                                         final textSensorsResponse =
                                             snapshot.data!;
                                         return Text(
-                                          '14',
+                                          valueOrDefault<String>(
+                                            BusGroup.sensorsCall
+                                                .ticketnum(
+                                                  textSensorsResponse.jsonBody,
+                                                )
+                                                .toString(),
+                                            '-',
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle1
                                               .override(
@@ -542,94 +562,152 @@ class _DescricaoBilheteWidgetState extends State<DescricaoBilheteWidget> {
                             ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Ponte de Serves\nIgreja de Gondar\nPonta do Campo\nIgreja de Pevidém\nBatoca\nPisca\nCentral de Camionagem (Alameda)\nConde Margaride\nPlataforma das Artes\nS. Gonçalo\n',
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(81, 0, 0, 0),
+                                child: Text(
+                                  '06:21\n06:24\n06:27\n06:29\n06:33\n06:38\n06:41\n06:42\n06:44\n06:45\n',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Color(0xFF0F1113),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 7,
-                  color: Color(0x32000000),
-                  offset: Offset(0, -2),
-                )
-              ],
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0),
-                bottomRight: Radius.circular(0),
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            '€2.8',
-                            style: FlutterFlowTheme.of(context).title1.override(
-                                  fontFamily: 'Outfit',
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: Text(
-                          'Até Famalicão',
-                          style:
-                              FlutterFlowTheme.of(context).bodyText2.override(
-                                    fontFamily: 'Outfit',
-                                    color: Color(0xFF57636C),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
-                      ),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF0F1113),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 7,
+                        color: Color(0x32000000),
+                        offset: Offset(0, -2),
+                      )
                     ],
-                  ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
-                    },
-                    text: 'Comprar',
-                    options: FFButtonOptions(
-                      width: 160,
-                      height: 50,
-                      color: Color(0xFF4B39EF),
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Outfit',
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                      elevation: 3,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
                     ),
                   ),
-                ],
-              ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  '€2.8',
+                                  style: FlutterFlowTheme.of(context)
+                                      .title1
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        color: Colors.white,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                              child: Text(
+                                'Até Guimarães',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText2
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Obrigado pela Compra!'),
+                                  content: Text(
+                                      'Pode aceder ao seu bilhete na aba \"Meus Bilhetes\"'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          text: 'Comprar',
+                          options: FFButtonOptions(
+                            width: 160,
+                            height: 50,
+                            color: Color(0xFF4B39EF),
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                            elevation: 3,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

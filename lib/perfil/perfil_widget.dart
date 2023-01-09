@@ -17,6 +17,13 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
@@ -111,7 +118,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                 child: Text(
-                                  'joy@augustin.com',
+                                  'souojoyaugustin@gmail.com',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText2
                                       .override(
@@ -133,7 +140,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 0),
                 child: Text(
-                  'Account',
+                  'A Minha Conta',
                   style: FlutterFlowTheme.of(context).subtitle2.override(
                         fontFamily: 'Outfit',
                         color: Color(0xFF14181B),
@@ -172,7 +179,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Payment Options',
+                            'Opções de pagamento',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -227,7 +234,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Country',
+                            'Nacionalidade',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -282,7 +289,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Notification Settings',
+                            'Notificações',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -337,7 +344,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Edit Profile',
+                            'Editar Perfil',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -365,7 +372,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 0),
                 child: Text(
-                  'General',
+                  'Geral',
                   style: FlutterFlowTheme.of(context).subtitle2.override(
                         fontFamily: 'Outfit',
                         color: Color(0xFF14181B),
@@ -404,7 +411,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Support',
+                            'Suporte',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -459,7 +466,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Terms of Service',
+                            'Termos de Serviço',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -514,7 +521,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
-                            'Invite Friends',
+                            'Convidar Amigos',
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',

@@ -9,13 +9,24 @@ export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
+/// Start bus Group Code
+
+class BusGroup {
+  static String baseUrl = 'https://pg50670-38o1253pnu72raw1.socketxp.com';
+  static Map<String, String> headers = {};
+  static SensorsCall sensorsCall = SensorsCall();
+  static NewticketCall newticketCall = NewticketCall();
+}
+
 class SensorsCall {
-  static Future<ApiCallResponse> call() {
+  Future<ApiCallResponse> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'sensors',
-      apiUrl: 'https://pg50670-38o1253pnu72raw1.socketxp.com/sensors',
+      apiUrl: '${BusGroup.baseUrl}/sensors',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        ...BusGroup.headers,
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -24,49 +35,48 @@ class SensorsCall {
     );
   }
 
-  static dynamic busid(dynamic response) => getJsonField(
+  dynamic busid(dynamic response) => getJsonField(
         response,
         r'''$.bus_id''',
       );
-  static dynamic temp(dynamic response) => getJsonField(
+  dynamic temp(dynamic response) => getJsonField(
         response,
         r'''$.temperature''',
       );
-  static dynamic velocity(dynamic response) => getJsonField(
+  dynamic velocity(dynamic response) => getJsonField(
         response,
         r'''$.velocity''',
       );
+  dynamic ticketnum(dynamic response) => getJsonField(
+        response,
+        r'''$.ticket_num''',
+      );
 }
 
-class ConfluentCall {
-  static Future<ApiCallResponse> call() {
-    final body = '''
-{
-  "value": {
-    "type": "JSON",
-    "data": "Hello World!"
-  }
-}''';
+class NewticketCall {
+  Future<ApiCallResponse> call() {
     return ApiManager.instance.makeApiCall(
-      callName: 'confluent',
-      apiUrl:
-          'https://pkc-41wq6.eu-west-2.aws.confluent.cloud:443/kafka/v3/clusters/lkc-2rj3km/topics/speedometer/records',
-      callType: ApiCallType.POST,
+      callName: 'newticket',
+      apiUrl: '${BusGroup.baseUrl}/newticket',
+      callType: ApiCallType.GET,
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization':
-            'Basic NU1PV1hUSDRVUkhUUVo1WDpiaVNta1B3SGp3Qk1tdjFvMEFvSEZBUWVUSVE3d09KVzNseDJsK3V0MXhNRTdpZ0QxdGd0MzJtclJIS3JaUkVK',
+        ...BusGroup.headers,
       },
       params: {},
-      body: body,
-      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
     );
   }
+
+  dynamic newticket(dynamic response) => getJsonField(
+        response,
+        r'''$.new_ticket''',
+      );
 }
+
+/// End bus Group Code
 
 class ApiPagingParams {
   int nextPageNumber = 0;
