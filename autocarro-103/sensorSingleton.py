@@ -18,16 +18,16 @@ class Singleton:
     
     def generate_message(self):
         #create lists with upper and lower limits
-        user_ids = list(range(1, 101))
+        #user_ids = list(range(1, 101))
         velocity_range = list(range(30, 55))
         temperature_range = list(range(15, 25))
         #choose a random value from the lists
-        random_user_id = random.choice(user_ids)
+        bus_id = 103
         velocity_message = random.choice(velocity_range)
         temperature_message = random.choice(temperature_range)
         #return message
         return {
-            'bus_id': random_user_id,
+            'bus_id': bus_id,
             'velocity': velocity_message,
             'temperature': temperature_message
         }

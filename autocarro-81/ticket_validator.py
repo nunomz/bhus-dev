@@ -11,7 +11,7 @@ from kafka import KafkaProducer
 import sys
 import requests
 
-bus_id = '01'
+bus_id = '81'
 old_barcode_info = ''
 resp = ''
 
@@ -21,6 +21,7 @@ def serializer(message):
 
 def post_qr(code):
     url='https://pg50670-38o1253pnu72raw1.socketxp.com/ticket'
+    #url='http://0.0.0.0:5000/ticket'
     data={'bus_id': bus_id,'codes': code}
     print('Sending code: '+code)
     r = requests.post(url, data = data)
@@ -40,13 +41,13 @@ def read_barcodes(frame):
             cv2.rectangle(frame, (x, y),(x+w, y+h), (0, 255, 0), 2)
             font = cv2.FONT_HERSHEY_DUPLEX
             if resp == 200:
-                cv2.putText(frame, barcode_info, (x + 6, y - 6), font, 2.0, (255, 255, 255), 1)        
+                #cv2.putText(frame, barcode_info, (x + 6, y - 6), font, 2.0, (255, 255, 255), 1)        
                 cv2.putText(frame, 'SUCESSO', (x + 6, y - 6), font, 2.0, (0, 255, 0), 1)
             elif resp == 403:
-                cv2.putText(frame, 'Bilhete Invalido', (x + 6, y - 6), font, 2.0, (50, 50, 255), 1)        
+                #cv2.putText(frame, 'Bilhete Invalido', (x + 6, y - 6), font, 2.0, (50, 50, 255), 1)        
                 cv2.putText(frame, 'ERRO', (x + 6, y - 6), font, 2.0, (0, 0, 255), 1)
             elif resp == 400:
-                cv2.putText(frame, 'Bilhete nao Encontrado', (x + 1, y - 1), font, 0.4, (50, 50, 255), 1)        
+                #cv2.putText(frame, 'Bilhete nao Encontrado', (x + 1, y - 1), font, 0.4, (50, 50, 255), 1)        
                 cv2.putText(frame, 'ERRO', (x + 6, y - 6), font, 2.0, (0, 0, 255), 1)
     return frame
 

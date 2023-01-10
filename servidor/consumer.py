@@ -17,6 +17,13 @@ def start():
     )
     #print(consumer.config['api_version'])
     for message in consumer:
-        print('\tCONSUMED: '+str(json.loads(message.value)))
-        with open('sensorcluster_output.json', 'ab') as outfile:
-            outfile.write(message.value + b"\n")
+        mensagem = json.loads(message.value)
+        print('\tCONSUMED: '+str(mensagem))
+        # if mensagem.get("bus_id") == '081':
+        #     with open('bd/081/sensorcluster_output.json', 'ab') as outfile:
+        #         outfile.write(message.value + b"\n")
+        # elif mensagem.get("bus_id") == '103':
+        #     with open('bd/103/sensorcluster_output.json', 'ab') as outfile:
+        #         outfile.write(message.value + b"\n")
+        with open('bd/' + str(mensagem.get("bus_id")) + '/sensorcluster_output.json', 'ab') as outfile:
+                 outfile.write(message.value + b"\n")
