@@ -45,8 +45,10 @@ def new_ticket():
 @app.route('/ticket', methods=['POST'])
 def check_ticket():
     print(request)
-    bcode = request.form.get('codes').encode('utf-8')
-    busid = str(bcode[ 3 : 4 ])
+    bcode = request.form.get('codes')
+    print(bcode)
+    busid = bcode[ 3 : 5 ]
+    print(busid)
     if busid == '81':
         with open("bd/81/tickets.txt", "r+b", 0) as file,\
             mmap.mmap(file.fileno(), 0) as s:
@@ -74,7 +76,7 @@ def check_ticket():
         with open("bd/103/tickets.txt", "r+b", 0) as file,\
             mmap.mmap(file.fileno(), 0) as s:
             #https://stackoverflow.com/questions/4940032/how-to-search-for-a-string-in-text-files
-            index = s.find(bcode)
+            index = s.find(bcode.encode())
             if index != -1:
                 print('true')
                 resp= jsonify({'message': 'Success'})
